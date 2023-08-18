@@ -1,0 +1,1 @@
+user defined event in node would writes content into a file when fired
