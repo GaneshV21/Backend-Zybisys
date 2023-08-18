@@ -13,19 +13,19 @@ const ObjectId = require('mongodb').ObjectId;
 /* 1.Create an express app in node which should count the number of times a user visits a web page
  and display it to the user.*/
 
-// app.use(cookieParser());
+app.use(cookieParser());
 
-// let count=1;
+let count=1;
 
-// app.get('/',(req,res)=>{
-//     res.cookie("count",count++) 
-//     if(req.cookies.count=== undefined){
-//         res.send("count 0")
-//     }  
-//     else{
-//         res.send("count"+" "+ req.cookies.count);
-//     }
-// })
+app.get('/',(req,res)=>{
+    res.cookie("count",count++) 
+    if(req.cookies.count=== undefined){
+        res.send("count 0")
+    }  
+    else{
+        res.send("count"+" "+ req.cookies.count);
+    }
+})
 
 
 /* 2.Create a route in express which should have a middleware to authenticate a user by checking whether 
@@ -58,17 +58,17 @@ app.use(authenticate);
 
 /* 3.Using the ‘fs’ module in nodejs, read an html file and display its content on the web page */
 
-// app.get('/webpage',(req,resp)=>{
-//     fs.readFile("index.html",(err,res)=>{
-//         if(err){
-//             console.log(err)
-//         }
-//         else{
-//             resp.send(res.toString())
-//         }
-//     })
+app.get('/webpage',(req,resp)=>{
+    fs.readFile("index.html",(err,res)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            resp.send(res.toString())
+        }
+    })
 
-// })
+})
 
 
 
@@ -76,19 +76,19 @@ app.use(authenticate);
 /* 4. Create a user defined event in node which when fired should write some content to a file. */
 
 
-// eventsEmit.on('ganesh',()=>{
-// fs.writeFile("data.txt","user defined event in node would writes content into a file when fired",(err,res)=>{
-//         if(err){
-//             console.log(err)
-//         }
-//         else{
-//             res.send("content is written to file")
-//         }
-//     } 
-//     )
-// })
+eventsEmit.on('ganesh',()=>{
+fs.writeFile("data.txt","user defined event in node would writes content into a file when fired",(err,res)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.send("content is written to file")
+        }
+    } 
+    )
+})
 
-// eventsEmit.emit('ganesh');
+eventsEmit.emit('ganesh');
 
 
 
@@ -96,26 +96,26 @@ app.use(authenticate);
 then fetch the document of that particular object id and pass it on to the ejs template engine to view the data */
 
 
-// const Client =new MongoClient(url);
-// app.set('view engine', 'ejs');
-// app.set('views',__dirname)
+const Client =new MongoClient(url);
+app.set('view engine', 'ejs');
+app.set('views',__dirname)
 
-// app.get('/mongo/:id', function(req, resp){
-//     try{
-//         var o_id = new ObjectId(req.params.id)
-//         Client.connect(url).then(()=>{
-//             console.log("Connect");
-//             const DB=Client.db("Ganesh");
-//             const coll=DB.collection("crud")
-//             coll.find({_id:o_id}).toArray().then((res)=>{
-//                 resp.render('view',{res:res})                
-//             })    
-//         })
-//     }
-//     catch{
-//         resp.send("no data")
-//     }
-// })
+app.get('/mongo/:id', function(req, resp){
+    try{
+        var o_id = new ObjectId(req.params.id)
+        Client.connect(url).then(()=>{
+            console.log("Connect");
+            const DB=Client.db("Ganesh");
+            const coll=DB.collection("crud")
+            coll.find({_id:o_id}).toArray().then((res)=>{
+                resp.render('view',{res:res})                
+            })    
+        })
+    }
+    catch{
+        resp.send("no data")
+    }
+})
  
 
 
