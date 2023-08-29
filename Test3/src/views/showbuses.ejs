@@ -1,0 +1,9 @@
+<%data.map((item)=>{%>
+    <h3><%=item.name%></h3>
+    <h4><%=item.prize%></h4>
+    <form action="/book" method="post">
+        <input type="hidden" name="busname" value="<%=item.name%>">
+        <input type="hidden" name="busprize" value="<%=item.prize%>">
+        <input type="submit" value="booking">
+    </form>
+<%})%>
